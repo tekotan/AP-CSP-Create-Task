@@ -168,4 +168,4 @@ def generate_images(model, test_input, tar):
         # getting the pixel values between [0, 1] to plot it.
         plt.imshow(display_list[i] * 0.5 + 0.5)
         plt.axis("off")
-    plt.show()
+    plt.savefig("best_so_far.png")
