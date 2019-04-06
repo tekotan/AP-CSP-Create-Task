@@ -11,7 +11,6 @@ discriminator = md.Discriminator().get_model()
 train_dataset, test_dataset = dp.get_datasets()
 
 LAMBDA = 100
-loss_object = tf.keras.losses.BinaryCrossentropy(from_logits=True)
 
 generator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
 discriminator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
