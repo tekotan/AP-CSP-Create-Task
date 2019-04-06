@@ -1,6 +1,4 @@
 import os
-import time
-import matplotlib.pyplot as plt
 import tensorflow as tf
 
 _URL = "https://people.eecs.berkeley.edu/~tinghuiz/projects/pix2pix/datasets/facades.tar.gz"
@@ -115,7 +113,7 @@ def load_image_test(image_file):
     return input_image, real_image
 
 
-def load_image_face_train(image_file):
+def load_image_face_test(image_file):
     image = load_face(image_file)
     image = normalize_face(image)
 
@@ -143,28 +141,28 @@ def get_datasets_face():
     train_dataset_man = train_dataset_man.map(
         load_image_face_train, num_parallel_calls=tf.data.experimental.AUTOTUNE
     )
-    train_dataset_man = train_dataset.batch(1)
+    train_dataset_man = train_dataset_man.batch(1)
 
     train_dataset_woman = tf.data.Dataset.list_files(PATH + "train/woman/*.jpg")
     train_dataset_woman = train_dataset_woman.shuffle(BUFFER_SIZE)
     train_dataset_woman = train_dataset_woman.map(
         load_image_face_train, num_parallel_calls=tf.data.experimental.AUTOTUNE
     )
-    train_dataset_woman = train_dataset.batch(1)
+    train_dataset_woman = train_dataset_woman.batch(1)
 
     test_dataset_man = tf.data.Dataset.list_files(PATH + "test/man/*.jpg")
     test_dataset_man = test_dataset_man.shuffle(BUFFER_SIZE)
     test_dataset_man = test_dataset_man.map(
         load_image_face_train, num_parallel_calls=tf.data.experimental.AUTOTUNE
     )
-    test_dataset_man = train_dataset.batch(1)
+    test_dataset_man = test_dataset_man.batch(1)
 
     test_dataset_woman = tf.data.Dataset.list_files(PATH + "test/woman/*.jpg")
     test_dataset_woman = test_dataset_woman.shuffle(BUFFER_SIZE)
     test_dataset_woman = test_dataset_woman.map(
         load_image_face_train, num_parallel_calls=tf.data.experimental.AUTOTUNE
     )
-    test_dataset_woman = train_dataset.batch(1)
+    test_dataset_woman = test_dataset_woman.batch(1)
 
     train_dataset = tf.data.Dataset.zip((train_dataset_man, train_dataset_woman))
     test_dataset = tf.data.Dataset.zip((test_dataset_man, test_dataset_woman))

@@ -1,7 +1,4 @@
 import tensorflow as tf
-import pandas as pd
-import numpy as np
-import os
 import matplotlib.pyplot as plt
 
 
@@ -81,7 +78,7 @@ class Discriminator:
         relu = tf.keras.layers.LeakyReLU(alpha=0.2)(batch_norm)
         return relu
 
-    def upsample(self, inputs, filers, dropout=True):
+    def upsample(self, inputs, filters, dropout=True):
         conv = tf.keras.layers.Conv2DTranspose(
             filters=filters, strides=(2, 2), kernel_size=(4, 4)
         )(inputs)
